@@ -1,0 +1,64 @@
+dataset:
+  roboflow_workspace: "${ROBOFLOW_WORKSPACE}"
+  roboflow_project: "${ROBOFLOW_PROJECT}"
+  roboflow_version: 6
+  export_format: "yolov8"
+  local_cache: "outputs/data/tfpbd"
+  image_size: 640
+
+classes:
+  - People
+  - Bike
+  - CNG
+  - Car
+  - Cycle
+  - Mini-Truck
+  - Rickshaw
+  - Bus
+  - Truck
+
+detector:
+  model: "yolov8n.pt"
+  epochs: 50
+  batch_size: 16
+  patience: 10
+  device: "0"
+
+risk:
+  risk_image_size: 640
+  pedestrian_class: "People"
+  vehicle_classes:
+    - Bike
+    - CNG
+    - Car
+    - Cycle
+    - Mini-Truck
+    - Rickshaw
+    - Bus
+    - Truck
+  large_vehicle_classes:
+    - Bus
+    - Truck
+    - Mini-Truck
+  informal_vehicle_classes:
+    - Rickshaw
+    - CNG
+  proximity_threshold_norm: 0.12
+  overlap_threshold: 0.02
+  high_risk_distance_norm: 0.05
+  medium_risk_distance_norm: 0.12
+
+training:
+  batch_size: 32
+  epochs: 60
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  hidden_dim: 128
+  num_layers: 3
+  dropout: 0.2
+  device: "cuda"
+
+evaluation:
+  confidence_threshold: 0.25
+  iou_threshold: 0.5
+  risk_threshold: 0.5
